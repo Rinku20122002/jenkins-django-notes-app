@@ -32,8 +32,7 @@ services:
       timeout: 5s
       retries: 5
   django:
-    build:
-      context: .
+    image:01182001/jenkins-notes-app
     container_name: django_cont
     ports:
       - "8000:8000"
