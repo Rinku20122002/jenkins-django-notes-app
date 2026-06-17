@@ -15,6 +15,7 @@ pipeline {
             steps {
                 script{
                     docker_build("notes-app", "latest", "01182001")
+                    echo 'Code build successfully'
                 }
             }
         }
