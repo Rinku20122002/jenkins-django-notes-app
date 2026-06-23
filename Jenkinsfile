@@ -2,13 +2,6 @@
 pipeline{
     agent{ label 'worker1'}
     stages{
-        stage("Hello"){
-            steps{
-                script{
-                    Hello()
-                }
-            }
-        }
         stage("Code clone"){
             steps{
                 script{
