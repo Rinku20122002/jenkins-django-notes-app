@@ -1,40 +1,42 @@
-@Library("shared") _
-pipeline {
-    agent {
-        label 'worker'
-    }
-    stages {
-        stage('Code') {
-            steps {
-                echo 'Cloning repository...'
-                git url: 'https://github.com/Rinku20122002/jenkins-django-notes-app.git', branch: 'main'
-                echo 'Code cloned successfully'
-            }
-        }
-        stage('Build') {
-            steps {
+@Library('shared-lib-2') _
+pipeline{
+    agent{ label 'worker1'}
+    stages{
+        stage("Hello"){
+            steps{
                 script{
-                    docker_build("notes-app", "latest", "01182001")
-                    echo 'Code build successfully'
+                    Hello()
                 }
             }
         }
-        stage('Push to DockerHub') {
-            steps {
+        stage("Code clone"){
+            steps{
                 script{
-                    docker_push("notes-app", "latest", "01182001")
+                    clone("https://github.com/Rinku20122002/jenkins-django-notes-app.git" , "main")
                 }
             }
         }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying application...'
-
-                sh ''' 
-                docker compose down || true
-                docker compose up -d
-                '''
+        stage("Build Stage"){
+            steps{
+                script{
+                    docker_build("django-notes", "latest", "01182001")
+                }
+            }
+        }
+        stage("Push to DockerHub"){
+            steps{
+                script{
+                    docker_push("django-notes", "latest")
+                }
+            }      
+        }
+        stage("Deployment Stage"){
+            steps{
+                echo "This is deploing the code"
+                sh '''
+                    docker compose down || true
+                    docker compose up -d
+                    '''
             }
         }
     }
