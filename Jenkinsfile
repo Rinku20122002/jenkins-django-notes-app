@@ -19,7 +19,7 @@ pipeline{
         stage("Vulnerability Scan (Trivy)"){
             steps{
                 echo "Scanning Docker Image for Security Vulnerabilities..."
-                sh 'trivy image django-notes:latest || true'
+                sh 'trivy image latest/django-notes:01182001 || true'
             }
         }  
                 
