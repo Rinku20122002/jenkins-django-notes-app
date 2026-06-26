@@ -20,6 +20,8 @@ pipeline{
             steps{
                 echo "Scanning Docker Image for Security Vulnerabilities..."
                 sh 'trivy image django-notes:latest || true'
+            }
+        }  
                 
         stage("Push to DockerHub"){
             steps{
