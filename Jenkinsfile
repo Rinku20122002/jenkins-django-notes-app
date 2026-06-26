@@ -19,7 +19,7 @@ pipeline{
         stage("Vulnerability Scan (Trivy)"){
             steps{
                 echo "Scanning Docker Image for Security Vulnerabilities..."
-                sh 'trivy image --severity CRITICAL --ignore-unfixed exit-code 1 latest/django-notes:01182001'
+                sh 'trivy image --severity CRITICAL --ignore-unfixed --exit-code 1 latest/django-notes:01182001'
             }
         }  
                 
